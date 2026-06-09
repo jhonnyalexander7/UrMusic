@@ -1,17 +1,66 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="buscar-page">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Título -->
+  <div class="buscar-header">
+    <h1>Buscar</h1>
+    <div class="search-bar">
+      <ion-icon name="search"></ion-icon>
+      <input type="text" placeholder="Artistas, canciones, letras y más..." />
+      <ion-icon name="mic"></ion-icon>
+    </div>
+  </div>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <!-- Explorar categorías -->
+  <div class="section">
+    <h3 class="section-title">Explorar categorías</h3>
+    <div class="categorias-grid">
+      <div class="categoria-card cat1"><span>Reggaeton</span></div>
+      <div class="categoria-card cat2"><span>Bachata</span></div>
+      <div class="categoria-card cat3"><span>Pop Latino</span></div>
+      <div class="categoria-card cat4"><span>Urbano</span></div>
+      <div class="categoria-card cat5"><span>Rock</span></div>
+      <div class="categoria-card cat6"><span>Electrónica</span></div>
+    </div>
+  </div>
+
+  <!-- Tendencias -->
+  <div class="section">
+    <h3 class="section-title">Tendencias ahora</h3>
+    <div class="tendencia-row">
+      <span class="num">1</span>
+      <div class="tend-info">
+        <p class="tend-song">Tití Me Preguntó</p>
+        <p class="tend-artist">Bad Bunny</p>
+      </div>
+    </div>
+    <div class="tendencia-row">
+      <span class="num">2</span>
+      <div class="tend-info">
+        <p class="tend-song">LALA</p>
+        <p class="tend-artist">Myke Towers</p>
+      </div>
+    </div>
+    <div class="tendencia-row">
+      <span class="num">3</span>
+      <div class="tend-info">
+        <p class="tend-song">Hawái</p>
+        <p class="tend-artist">Maluma</p>
+      </div>
+    </div>
+    <div class="tendencia-row">
+      <span class="num">4</span>
+      <div class="tend-info">
+        <p class="tend-song">Propuesta Indecente</p>
+        <p class="tend-artist">Romeo Santos</p>
+      </div>
+    </div>
+    <div class="tendencia-row">
+      <span class="num">5</span>
+      <div class="tend-info">
+        <p class="tend-song">Efecto</p>
+        <p class="tend-artist">Bad Bunny</p>
+      </div>
+    </div>
+  </div>
+
 </ion-content>

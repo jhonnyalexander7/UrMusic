@@ -1,0 +1,132 @@
+ion-content.escuchar-page {
+  --background: #1c1c1e;
+}
+
+.saludo {
+  padding: 50px 20px 8px;
+  .bienvenido { color: #888; font-size: 13px; margin: 0; }
+  .nombre { color: #fff; font-size: 30px; font-weight: 800; margin: 4px 0 0; letter-spacing: -0.5px; }
+}
+
+.featured-card {
+  margin: 16px;
+  background: linear-gradient(135deg, #f5a623, #e8472a, #e91e8c);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 160px;
+  box-shadow: 0 8px 32px rgba(233, 30, 140, 0.3);
+
+  .featured-info {
+    h2 { color: #fff; font-size: 20px; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.3px; }
+    p  { color: rgba(255,255,255,0.75); font-size: 13px; margin: 0; }
+  }
+
+  .play-btn {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    ion-icon { color: #fff; font-size: 24px; margin-left: 2px; }
+  }
+}
+
+.section { padding: 0 20px 20px; }
+
+.section-title {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 14px;
+  letter-spacing: -0.3px;
+}
+
+.recientes-scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.album-card {
+  flex-shrink: 0;
+  width: 110px;
+
+  .album-art {
+    width: 110px; height: 110px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    &.art1 { background: linear-gradient(135deg, #f5a623, #e8472a); }
+    &.art2 { background: linear-gradient(135deg, #3b4bc8, #8e44ad); }
+    &.art3 { background: linear-gradient(135deg, #f9ca24, #6ab04c); }
+  }
+
+  .song-name {
+    color: #fff; font-size: 12px; font-weight: 600;
+    margin: 0; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .artist-name { color: #888; font-size: 11px; margin: 3px 0 0; }
+}
+
+.artist-card {
+  background: #2c2c2e;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+
+  .artist-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%; flex-shrink: 0;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .artist-info { flex: 1; }
+  .artist-card-name { color: #fff; font-size: 14px; font-weight: 700; margin: 0; }
+  .artist-genre { color: #888; font-size: 12px; margin: 3px 0 0; }
+
+  .match-badge {
+    background: #fc3c44;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .seguir-btn {
+    --color: #fff;
+    --border-color: rgba(255,255,255,0.4);
+    --border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+}
+
+.offline-msg {
+  margin: 0 16px 16px;
+  background: #2c2c2e;
+  border-left: 3px solid #fc3c44;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  ion-icon { color: #fc3c44; font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+  .offline-title { color: #fff; font-size: 13px; font-weight: 700; margin: 0 0 4px; }
+  .offline-sub { color: #888; font-size: 11px; margin: 0; line-height: 1.4; }
+}

@@ -1,0 +1,10 @@
+<!-- Banner de estado de red -->
+<div class="network-banner" *ngIf="!isOnline">
+  <ion-icon name="cloud-offline-outline"></ion-icon>
+  <span>Sin conexión — Modo offline activado</span>
+</div>
+
+<div class="network-online" *ngIf="isOnline">
+  <ion-icon name="wifi-outline"></ion-icon>
+  <span>Conectado</span>
+</div>

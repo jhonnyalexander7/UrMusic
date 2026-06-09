@@ -1,17 +1,85 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="escuchar-page">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-network-banner></app-network-banner>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <!-- Mensaje offline amigable -->
+  <div class="offline-msg" *ngIf="!isOnline">
+    <ion-icon name="cloud-offline-outline"></ion-icon>
+    <div>
+      <p class="offline-title">Estás sin conexión</p>
+      <p class="offline-sub">Tu música guardada sigue disponible. Los cambios se sincronizarán cuando vuelvas a conectarte.</p>
+    </div>
+  </div>
+
+  <!-- Saludo -->
+  <div class="saludo">
+    <p class="bienvenido">Bienvenido de nuevo,</p>
+    <h1 class="nombre">Jhonny</h1>
+  </div>
+
+  <!-- Canción destacada -->
+  <div class="featured-card">
+    <div class="featured-info">
+      <h2>Un Verano Sin Ti</h2>
+      <p>Bad Bunny</p>
+    </div>
+    <div class="play-btn">
+      <ion-icon name="play"></ion-icon>
+    </div>
+  </div>
+
+  <!-- Recientes -->
+  <div class="section">
+    <h3 class="section-title">Recientes</h3>
+    <div class="recientes-scroll">
+      <div class="album-card">
+        <div class="album-art art1"></div>
+        <p class="song-name">Hawái</p>
+        <p class="artist-name">Maluma</p>
+      </div>
+      <div class="album-card">
+        <div class="album-art art2"></div>
+        <p class="song-name">Propuesta Indecente</p>
+        <p class="artist-name">Romeo Santos</p>
+      </div>
+      <div class="album-card">
+        <div class="album-art art3"></div>
+        <p class="song-name">Tití Me Preguntó</p>
+        <p class="artist-name">Bad Bunny</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Para ti -->
+  <div class="section">
+    <h3 class="section-title">Para ti</h3>
+    <div class="artist-card">
+      <img class="artist-avatar" src="https://i.scdn.co/image/ab6761610000e5eb19c2790744c792d05570bb71" alt="Bad Bunny"/>
+      <div class="artist-info">
+        <p class="artist-card-name">Bad Bunny</p>
+        <p class="artist-genre">Reggaeton</p>
+      </div>
+      <span class="match-badge">98%</span>
+      <ion-button fill="outline" size="small" class="seguir-btn">Seguir</ion-button>
+    </div>
+    <div class="artist-card">
+      <img class="artist-avatar" src="https://i.scdn.co/image/ab6761610000e5eb4293385d324db8558179afd9" alt="Drake"/>
+      <div class="artist-info">
+        <p class="artist-card-name">Drake</p>
+        <p class="artist-genre">Hip-Hop</p>
+      </div>
+      <span class="match-badge">94%</span>
+      <ion-button fill="outline" size="small" class="seguir-btn">Seguir</ion-button>
+    </div>
+    <div class="artist-card">
+      <img class="artist-avatar" src="https://i.scdn.co/image/ab6761610000e5eb01010b0d2c6b1e5dab3f4e2a" alt="Romeo Santos"/>
+      <div class="artist-info">
+        <p class="artist-card-name">Romeo Santos</p>
+        <p class="artist-genre">Bachata</p>
+      </div>
+      <span class="match-badge">91%</span>
+      <ion-button fill="outline" size="small" class="seguir-btn">Seguir</ion-button>
+    </div>
+  </div>
+
 </ion-content>

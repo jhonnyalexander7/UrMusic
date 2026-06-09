@@ -1,17 +1,86 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="editor-page">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Header -->
+  <div class="editor-header">
+    <h1>Editor de Audio</h1>
+  </div>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <!-- Mini player -->
+  <div class="mini-player">
+    <div class="mini-art"></div>
+    <div class="mini-info">
+      <p class="mini-song">Hawái</p>
+      <p class="mini-artist">Maluma</p>
+    </div>
+    <ion-icon name="pause-circle" class="mini-pause"></ion-icon>
+  </div>
+
+  <!-- Waveform -->
+  <div class="waveform-card">
+    <div class="waveform">
+      <div class="wave-bar selected" *ngFor="let b of barsSelected"></div>
+      <div class="wave-bar" *ngFor="let b of barsNormal"></div>
+    </div>
+  </div>
+
+  <!-- Efectos -->
+  <div class="section">
+    <p class="section-label">EFECTOS</p>
+    <div class="slider-row">
+      <span class="slider-name">Bajo</span>
+      <input type="range" min="0" max="100" value="70" class="red-slider"/>
+      <span class="slider-val">70</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-name">Agudos</span>
+      <input type="range" min="0" max="100" value="45" class="red-slider"/>
+      <span class="slider-val">45</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-name">Reverb</span>
+      <input type="range" min="0" max="100" value="30" class="red-slider"/>
+      <span class="slider-val">30</span>
+    </div>
+  </div>
+
+  <!-- Recorte -->
+  <div class="section">
+    <p class="section-label">RECORTE</p>
+    <div class="slider-row">
+      <span class="slider-name">Inicio</span>
+      <input type="range" min="0" max="100" value="20" class="red-slider"/>
+      <span class="slider-val">0:20</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-name">Fin</span>
+      <input type="range" min="0" max="100" value="75" class="red-slider"/>
+      <span class="slider-val">2:38</span>
+    </div>
+  </div>
+
+  <!-- Agregar audio -->
+  <div class="section">
+    <p class="section-label">AGREGAR AUDIO</p>
+    <div class="audio-cards">
+      <div class="audio-card record">
+        <ion-icon name="mic"></ion-icon>
+        <p class="audio-title">Grabar mi voz</p>
+        <p class="audio-sub">Micrófono del teléfono</p>
+      </div>
+      <div class="audio-card import">
+        <ion-icon name="cloud-upload"></ion-icon>
+        <p class="audio-title">Importar audio</p>
+        <p class="audio-sub">MP3 · WAV · AIFF</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guardar -->
+  <div class="section">
+    <div class="save-btn">
+      <ion-icon name="download"></ion-icon>
+      <span>Guardar mi versión</span>
+    </div>
+  </div>
+
 </ion-content>
