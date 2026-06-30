@@ -55,15 +55,12 @@ ion-content.buscar-page {
   display: flex;
   align-items: flex-end;
   padding: 10px;
-  position: relative;
-  overflow: hidden;
+  cursor: pointer;
 
   span {
     color: #fff;
     font-size: 14px;
     font-weight: 700;
-    position: relative;
-    z-index: 1;
   }
 
   &.cat1 { background: linear-gradient(135deg, #e91e8c, #f5a623); }
@@ -80,6 +77,7 @@ ion-content.buscar-page {
   gap: 14px;
   padding: 10px 0;
   border-bottom: 0.5px solid #2a2a2a;
+  cursor: pointer;
 
   .num {
     color: #fc3c44;
@@ -94,4 +92,25 @@ ion-content.buscar-page {
     .tend-song { color: #fff; font-size: 13px; font-weight: 600; margin: 0; }
     .tend-artist { color: #888; font-size: 11px; margin: 2px 0 0; }
   }
+}
+
+.result-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+
+  &.round { border-radius: 50%; }
+}
+
+.play-icon {
+  font-size: 18px;
+  color: #fc3c44;
+}
+
+.searching {
+  text-align: center;
+  padding: 20px;
+  p { color: #888; font-size: 14px; }
 }

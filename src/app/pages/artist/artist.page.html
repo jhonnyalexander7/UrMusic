@@ -1,0 +1,32 @@
+<ion-content [fullscreen]="true" class="artist-page">
+
+  <!-- Header con foto del artista -->
+  <div class="artist-header" [style.background-image]="'url(' + artist?.image + ')'">
+    <div class="header-overlay">
+      <ion-icon name="chevron-down" (click)="goBack()"></ion-icon>
+      <div class="artist-info">
+        <h1>{{ artist?.name }}</h1>
+        <div class="genres">
+          <span class="genre-tag" *ngFor="let genre of artist?.genres?.slice(0,3)">{{ genre }}</span>
+        </div>
+      </div>
+      <div class="follow-btn">Seguir</div>
+    </div>
+  </div>
+
+  <!-- Top canciones -->
+  <div class="section">
+    <h3 class="section-title">Top canciones</h3>
+    <div class="track-row" *ngFor="let track of tracks; let i = index" (click)="openPlayer(track)">
+      <span class="track-num">{{ i + 1 }}</span>
+      <img [src]="track.image" [alt]="track.name" class="track-img"/>
+      <div class="track-info">
+        <p class="track-name">{{ track.name }}</p>
+        <p class="track-album">{{ track.album }}</p>
+      </div>
+      <span class="track-duration">{{ formatDuration(track.duration) }}</span>
+      <ion-icon name="ellipsis-vertical" class="track-more"></ion-icon>
+    </div>
+  </div>
+
+</ion-content>

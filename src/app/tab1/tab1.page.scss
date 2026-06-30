@@ -10,14 +10,24 @@ ion-content.escuchar-page {
 
 .featured-card {
   margin: 16px;
-  background: linear-gradient(135deg, #f5a623, #e8472a, #e91e8c);
   border-radius: 20px;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
   height: 160px;
+  background-size: cover;
+  background-position: center;
+  background-color: #e8472a;
   box-shadow: 0 8px 32px rgba(233, 30, 140, 0.3);
+  overflow: hidden;
+  position: relative;
+
+  .featured-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.1));
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
 
   .featured-info {
     h2 { color: #fff; font-size: 20px; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.3px; }
@@ -57,13 +67,12 @@ ion-content.escuchar-page {
   width: 110px;
 
   .album-art {
-    width: 110px; height: 110px;
+    width: 110px;
+    height: 110px;
     border-radius: 12px;
     margin-bottom: 8px;
+    object-fit: cover;
     box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    &.art1 { background: linear-gradient(135deg, #f5a623, #e8472a); }
-    &.art2 { background: linear-gradient(135deg, #3b4bc8, #8e44ad); }
-    &.art3 { background: linear-gradient(135deg, #f9ca24, #6ab04c); }
   }
 
   .song-name {

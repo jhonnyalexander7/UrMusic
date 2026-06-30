@@ -5,62 +5,92 @@
     <h1>Buscar</h1>
     <div class="search-bar">
       <ion-icon name="search"></ion-icon>
-      <input type="text" placeholder="Artistas, canciones, letras y más..." />
+      <input
+        type="text"
+        placeholder="Artistas, canciones, letras y más..."
+        [(ngModel)]="searchQuery"
+        (input)="onSearch()"
+      />
       <ion-icon name="mic"></ion-icon>
     </div>
   </div>
 
-  <!-- Explorar categorías -->
-  <div class="section">
-    <h3 class="section-title">Explorar categorías</h3>
-    <div class="categorias-grid">
-      <div class="categoria-card cat1"><span>Reggaeton</span></div>
-      <div class="categoria-card cat2"><span>Bachata</span></div>
-      <div class="categoria-card cat3"><span>Pop Latino</span></div>
-      <div class="categoria-card cat4"><span>Urbano</span></div>
-      <div class="categoria-card cat5"><span>Rock</span></div>
-      <div class="categoria-card cat6"><span>Electrónica</span></div>
+  <!-- Resultados de búsqueda -->
+  <div class="section" *ngIf="searchResults">
+
+    <div class="searching" *ngIf="isSearching">
+      <p>Buscando...</p>
     </div>
+
+    <!-- Canciones encontradas -->
+    <div *ngIf="searchResults?.tracks?.length > 0">
+      <h3 class="section-title">Canciones</h3>
+      <div class="tendencia-row"
+        *ngFor="let track of searchResults.tracks; let i = index"
+        (click)="openPlayer(track)">
+        <img [src]="track.image" [alt]="track.name" class="result-img"/>
+        <div class="tend-info">
+          <p class="tend-song">{{ track.name }}</p>
+          <p class="tend-artist">{{ track.artist }}</p>
+        </div>
+        <ion-icon name="play" class="play-icon"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Artistas encontrados -->
+    <div *ngIf="searchResults?.artists?.length > 0">
+      <h3 class="section-title">Artistas</h3>
+      <div class="tendencia-row" *ngFor="let artist of searchResults.artists" (click)="openArtist(artist)">
+        <img [src]="artist.image || 'assets/default-artist.png'" [alt]="artist.name" class="result-img round"/>
+        <div class="tend-info">
+          <p class="tend-song">{{ artist.name }}</p>
+          <p class="tend-artist">{{ artist.genres[0] || 'Artista' }}</p>
+        </div>
+        <ion-icon name="chevron-forward" class="play-icon"></ion-icon>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Tendencias -->
-  <div class="section">
-    <h3 class="section-title">Tendencias ahora</h3>
-    <div class="tendencia-row">
-      <span class="num">1</span>
-      <div class="tend-info">
-        <p class="tend-song">Tití Me Preguntó</p>
-        <p class="tend-artist">Bad Bunny</p>
+  <!-- Contenido por defecto -->
+  <div *ngIf="!searchResults">
+
+    <div class="section">
+      <h3 class="section-title">Explorar categorías</h3>
+      <div class="categorias-grid">
+        <div class="categoria-card cat1" (click)="searchQuery='Reggaeton'; onSearch()"><span>Reggaeton</span></div>
+        <div class="categoria-card cat2" (click)="searchQuery='Bachata'; onSearch()"><span>Bachata</span></div>
+        <div class="categoria-card cat3" (click)="searchQuery='Pop Latino'; onSearch()"><span>Pop Latino</span></div>
+        <div class="categoria-card cat4" (click)="searchQuery='Urbano'; onSearch()"><span>Urbano</span></div>
+        <div class="categoria-card cat5" (click)="searchQuery='Rock'; onSearch()"><span>Rock</span></div>
+        <div class="categoria-card cat6" (click)="searchQuery='Electrónica'; onSearch()"><span>Electrónica</span></div>
       </div>
     </div>
-    <div class="tendencia-row">
-      <span class="num">2</span>
-      <div class="tend-info">
-        <p class="tend-song">LALA</p>
-        <p class="tend-artist">Myke Towers</p>
+
+    <div class="section">
+      <h3 class="section-title">Tendencias ahora</h3>
+      <div class="tendencia-row" (click)="searchQuery='Tití Me Preguntó Bad Bunny'; onSearch()">
+        <span class="num">1</span>
+        <div class="tend-info"><p class="tend-song">Tití Me Preguntó</p><p class="tend-artist">Bad Bunny</p></div>
+      </div>
+      <div class="tendencia-row" (click)="searchQuery='LALA Myke Towers'; onSearch()">
+        <span class="num">2</span>
+        <div class="tend-info"><p class="tend-song">LALA</p><p class="tend-artist">Myke Towers</p></div>
+      </div>
+      <div class="tendencia-row" (click)="searchQuery='Hawái Maluma'; onSearch()">
+        <span class="num">3</span>
+        <div class="tend-info"><p class="tend-song">Hawái</p><p class="tend-artist">Maluma</p></div>
+      </div>
+      <div class="tendencia-row" (click)="searchQuery='Propuesta Indecente Romeo Santos'; onSearch()">
+        <span class="num">4</span>
+        <div class="tend-info"><p class="tend-song">Propuesta Indecente</p><p class="tend-artist">Romeo Santos</p></div>
+      </div>
+      <div class="tendencia-row" (click)="searchQuery='Efecto Bad Bunny'; onSearch()">
+        <span class="num">5</span>
+        <div class="tend-info"><p class="tend-song">Efecto</p><p class="tend-artist">Bad Bunny</p></div>
       </div>
     </div>
-    <div class="tendencia-row">
-      <span class="num">3</span>
-      <div class="tend-info">
-        <p class="tend-song">Hawái</p>
-        <p class="tend-artist">Maluma</p>
-      </div>
-    </div>
-    <div class="tendencia-row">
-      <span class="num">4</span>
-      <div class="tend-info">
-        <p class="tend-song">Propuesta Indecente</p>
-        <p class="tend-artist">Romeo Santos</p>
-      </div>
-    </div>
-    <div class="tendencia-row">
-      <span class="num">5</span>
-      <div class="tend-info">
-        <p class="tend-song">Efecto</p>
-        <p class="tend-artist">Bad Bunny</p>
-      </div>
-    </div>
+
   </div>
 
 </ion-content>
