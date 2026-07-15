@@ -30,4 +30,27 @@ export const routes: Routes = [
     path: 'artist',
     loadComponent: () => import('./pages/artist/artist.page').then(m => m.ArtistPage)
   },
+  {
+    path: 'library',
+    loadComponent: () => import('./pages/library/library.page').then( m => m.LibraryPage)
+  },
+  {
+    path: 'concerts',
+    loadComponent: () => import('./pages/concerts/concerts.page').then( m => m.ConcertsPage)
+  },
+
+  {
+  path: 'concerts',
+  loadComponent: () => import('./pages/concerts/concerts.page').then(m => m.ConcertsPage)
+},
+  {
+    path: 'bluetooth-devices',
+    loadComponent: () => import('./pages/bluetooth-devices/bluetooth-devices.page').then( m => m.BluetoothDevicesPage)
+  },
+
+{
+  path: 'bluetooth-devices',
+  loadComponent: () => import('./pages/bluetooth-devices/bluetooth-devices.page').then(m => m.BluetoothDevicesPage)
+},
+
 ];

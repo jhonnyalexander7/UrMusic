@@ -17,11 +17,48 @@
     <ion-icon name="pause-circle" class="mini-pause"></ion-icon>
   </div>
 
-  <!-- Stats pills -->
+  <!-- Stats pills reales de Spotify -->
   <div class="stats-row">
-    <div class="stat-pill"><span>3:31</span><p>duración</p></div>
-    <div class="stat-pill"><span>96</span><p>BPM</p></div>
-    <div class="stat-pill"><span>La Mayor</span><p>clave</p></div>
+    <div class="stat-pill">
+      <span>{{ isLoadingFeatures ? '...' : audioFeatures.bpm }}</span>
+      <p>BPM</p>
+    </div>
+    <div class="stat-pill">
+      <span>{{ audioFeatures.key }}</span>
+      <p>clave</p>
+    </div>
+    <div class="stat-pill">
+      <span>{{ audioFeatures.timeSignature }}</span>
+      <p>compás</p>
+    </div>
+  </div>
+
+  <!-- Características de audio reales -->
+  <div class="section">
+    <p class="section-label">CARACTERÍSTICAS DE AUDIO</p>
+    <div class="feature-card">
+      <div class="feature-row">
+        <span class="feature-name">Energía</span>
+        <div class="feature-bar">
+          <div class="feature-fill energy" [style.width.%]="audioFeatures.energy"></div>
+        </div>
+        <span class="feature-val">{{ audioFeatures.energy }}%</span>
+      </div>
+      <div class="feature-row">
+        <span class="feature-name">Bailabilidad</span>
+        <div class="feature-bar">
+          <div class="feature-fill dance" [style.width.%]="audioFeatures.danceability"></div>
+        </div>
+        <span class="feature-val">{{ audioFeatures.danceability }}%</span>
+      </div>
+      <div class="feature-row">
+        <span class="feature-name">Positividad</span>
+        <div class="feature-bar">
+          <div class="feature-fill valence" [style.width.%]="audioFeatures.valence"></div>
+        </div>
+        <span class="feature-val">{{ audioFeatures.valence }}%</span>
+      </div>
+    </div>
   </div>
 
   <!-- Stems -->
@@ -132,11 +169,11 @@
       <div class="rhythm-stats">
         <div class="rhythm-row">
           <span class="rhythm-label">Compás</span>
-          <span class="rhythm-val">4/4</span>
+          <span class="rhythm-val">{{ audioFeatures.timeSignature }}</span>
         </div>
         <div class="rhythm-row">
-          <span class="rhythm-label">Tempo</span>
-          <span class="rhythm-val">Moderado</span>
+          <span class="rhythm-label">Duración</span>
+          <span class="rhythm-val">{{ formatDuration(audioFeatures.duration) }}</span>
         </div>
       </div>
     </div>

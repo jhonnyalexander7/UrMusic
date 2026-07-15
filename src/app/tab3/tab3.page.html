@@ -5,21 +5,30 @@
     <h1>Editor de Audio</h1>
   </div>
 
-  <!-- Mini player -->
-  <div class="mini-player">
-    <div class="mini-art"></div>
+  <!-- Mini player: muestra la canción que se está reproduciendo -->
+  <div class="mini-player" *ngIf="currentTrack">
+    <img [src]="currentTrack.image" [alt]="currentTrack.name" class="mini-art"/>
     <div class="mini-info">
-      <p class="mini-song">Hawái</p>
-      <p class="mini-artist">Maluma</p>
+      <p class="mini-song">{{ currentTrack.name }}</p>
+      <p class="mini-artist">{{ currentTrack.artist }}</p>
     </div>
-    <ion-icon name="pause-circle" class="mini-pause"></ion-icon>
+    <ion-icon [name]="isGlobalPlaying ? 'pause-circle' : 'play-circle-outline'" class="mini-pause"></ion-icon>
   </div>
 
-  <!-- Waveform -->
-  <div class="waveform-card">
+  <!-- Si no hay canción reproduciéndose -->
+  <div class="mini-player empty" *ngIf="!currentTrack">
+    <ion-icon name="musical-notes" class="empty-icon"></ion-icon>
+    <p class="empty-text">No hay ninguna canción reproduciéndose</p>
+  </div>
+
+  <!-- Waveform estilo SoundCloud -->
+  <div class="waveform-card soundcloud-style">
     <div class="waveform">
-      <div class="wave-bar selected" *ngFor="let b of barsSelected"></div>
-      <div class="wave-bar" *ngFor="let b of barsNormal"></div>
+      <div class="wave-bar" *ngFor="let height of waveformHeights; let i = index"
+        [style.height.%]="height"
+        [class.played]="i < 12"
+        [class.animating]="isPlayingPreview">
+      </div>
     </div>
   </div>
 
@@ -28,58 +37,112 @@
     <p class="section-label">EFECTOS</p>
     <div class="slider-row">
       <span class="slider-name">Bajo</span>
-      <input type="range" min="0" max="100" value="70" class="red-slider"/>
-      <span class="slider-val">70</span>
+      <input type="range" min="0" max="100" [(ngModel)]="bassValue" (input)="onBassChange()" class="red-slider"/>
+      <span class="slider-val">{{ bassValue }}</span>
     </div>
     <div class="slider-row">
       <span class="slider-name">Agudos</span>
-      <input type="range" min="0" max="100" value="45" class="red-slider"/>
-      <span class="slider-val">45</span>
+      <input type="range" min="0" max="100" [(ngModel)]="trebleValue" (input)="onTrebleChange()" class="red-slider"/>
+      <span class="slider-val">{{ trebleValue }}</span>
     </div>
     <div class="slider-row">
       <span class="slider-name">Reverb</span>
-      <input type="range" min="0" max="100" value="30" class="red-slider"/>
-      <span class="slider-val">30</span>
+      <input type="range" min="0" max="100" [(ngModel)]="reverbValue" (input)="onReverbChange()" class="red-slider"/>
+      <span class="slider-val">{{ reverbValue }}</span>
+    </div>
+    <div class="test-effects-btn" (click)="playWithEffects()" *ngIf="importedAudio || recordedAudio">
+      <ion-icon name="play-circle"></ion-icon>
+      <span>Escuchar con efectos aplicados</span>
     </div>
   </div>
 
   <!-- Recorte -->
   <div class="section">
-    <p class="section-label">RECORTE</p>
+    <p class="section-label">RECORTE — Selecciona la parte a grabar</p>
     <div class="slider-row">
       <span class="slider-name">Inicio</span>
-      <input type="range" min="0" max="100" value="20" class="red-slider"/>
-      <span class="slider-val">0:20</span>
+      <input type="range" min="0" max="240" [(ngModel)]="startTime" class="red-slider"/>
+      <span class="slider-val">{{ formatDuration(startTime) }}</span>
     </div>
     <div class="slider-row">
       <span class="slider-name">Fin</span>
-      <input type="range" min="0" max="100" value="75" class="red-slider"/>
-      <span class="slider-val">2:38</span>
+      <input type="range" min="0" max="240" [(ngModel)]="endTime" class="red-slider"/>
+      <span class="slider-val">{{ formatDuration(endTime) }}</span>
     </div>
   </div>
 
   <!-- Agregar audio -->
   <div class="section">
     <p class="section-label">AGREGAR AUDIO</p>
-    <div class="audio-cards">
-      <div class="audio-card record">
+
+    <!-- Estado inicial: dos opciones -->
+    <div class="audio-cards" *ngIf="!isRecording && !recordedAudio && !importedAudio">
+      <div class="audio-card record" (click)="startRecording()">
         <ion-icon name="mic"></ion-icon>
         <p class="audio-title">Grabar mi voz</p>
         <p class="audio-sub">Micrófono del teléfono</p>
       </div>
-      <div class="audio-card import">
+      <div class="audio-card import" (click)="fileInput.click()">
         <ion-icon name="cloud-upload"></ion-icon>
         <p class="audio-title">Importar audio</p>
         <p class="audio-sub">MP3 · WAV · AIFF</p>
       </div>
     </div>
+    <input #fileInput type="file" accept=".mp3,.wav,.aiff" style="display:none" (change)="onFileSelected($event)"/>
+
+    <!-- Instrumental importado listo para grabación sincronizada -->
+    <div class="sync-card" *ngIf="importedAudio && !isRecording && !recordedAudio">
+      <div class="sync-info">
+        <ion-icon name="musical-notes"></ion-icon>
+        <div>
+          <p class="sync-title">{{ importedAudio.name }}</p>
+          <p class="sync-sub">Instrumental listo — grabarás de {{ formatDuration(startTime) }} a {{ formatDuration(endTime) }}</p>
+        </div>
+      </div>
+      <div class="sync-btn" (click)="startSyncedRecording()">
+        <ion-icon name="mic"></ion-icon>
+        <span>Grabar mi voz sincronizada</span>
+      </div>
+    </div>
+
+    <!-- Grabando en tiempo real -->
+    <div class="recording-active" *ngIf="isRecording">
+      <div class="rec-pulse"></div>
+      <p class="rec-time">{{ recordingTimeDisplay }}</p>
+      <p class="rec-label">{{ isSyncedRecording ? 'Grabando sincronizado con instrumental...' : 'Grabando...' }}</p>
+      <div class="stop-btn" (click)="stopRecording()">
+        <ion-icon name="stop"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Audio grabado listo -->
+    <div class="audio-result" *ngIf="recordedAudio && !isRecording">
+      <ion-icon name="mic" class="result-icon record-color"></ion-icon>
+      <div class="result-info">
+        <p class="result-name">{{ recordedAudio.name }}</p>
+        <p class="result-sub">Duración: {{ formatDuration(recordedAudio.duration) }}</p>
+      </div>
+      <ion-icon name="play-circle" class="result-play" (click)="playPreview(recordedAudio.url)"></ion-icon>
+      <ion-icon name="trash" class="result-delete" (click)="clearRecording()"></ion-icon>
+    </div>
+
+    <!-- Audio importado (mostrado también si ya hay grabación) -->
+    <div class="audio-result" *ngIf="importedAudio && recordedAudio">
+      <ion-icon name="cloud-upload" class="result-icon import-color"></ion-icon>
+      <div class="result-info">
+        <p class="result-name">{{ importedAudio.name }}</p>
+        <p class="result-sub">{{ formatDuration(importedAudio.duration) }} · {{ formatFileSize(importedAudio.size) }}</p>
+      </div>
+      <ion-icon name="play-circle" class="result-play" (click)="playPreview(importedAudio.url)"></ion-icon>
+      <ion-icon name="trash" class="result-delete" (click)="clearImport()"></ion-icon>
+    </div>
   </div>
 
   <!-- Guardar -->
   <div class="section">
-    <div class="save-btn">
-      <ion-icon name="download"></ion-icon>
-      <span>Guardar mi versión</span>
+    <div class="save-btn" (click)="saveMyVersion()">
+      <ion-icon [name]="savedSuccess ? 'checkmark-circle' : 'download'"></ion-icon>
+      <span>{{ savedSuccess ? '¡Guardado en Biblioteca!' : 'Guardar mi versión' }}</span>
     </div>
   </div>
 

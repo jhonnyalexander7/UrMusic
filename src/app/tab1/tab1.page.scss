@@ -121,6 +121,12 @@ ion-content.escuchar-page {
     font-size: 12px;
     font-weight: 600;
     flex-shrink: 0;
+
+    &.following {
+      --background: #fc3c44;
+      --border-color: #fc3c44;
+      --color: #fff;
+    }
   }
 }
 
@@ -138,4 +144,35 @@ ion-content.escuchar-page {
 
   .offline-title { color: #fff; font-size: 13px; font-weight: 700; margin: 0 0 4px; }
   .offline-sub { color: #888; font-size: 11px; margin: 0; line-height: 1.4; }
+
+.concerts-banner {
+  background: linear-gradient(135deg, #1a1a2e, #2c2c2e);
+  border: 1px solid #3b4bc8;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  > ion-icon:first-child {
+    font-size: 26px;
+    color: #45aaf2;
+    flex-shrink: 0;
+  }
+
+  .concerts-banner-text {
+    flex: 1;
+
+    .banner-title { color: #fff; font-size: 14px; font-weight: 700; margin: 0; }
+    .banner-sub { color: #888; font-size: 11px; margin: 3px 0 0; }
+  }
+
+  > ion-icon:last-child {
+    font-size: 18px;
+    color: #666;
+  }
+}
+
+
 }

@@ -178,5 +178,10 @@ ion-content.player-page {
       ion-icon { color: #45aaf2; }
       span { color: #45aaf2; }
     }
+
+    &.highlight-green {
+      ion-icon { color: #2ecc71; }
+      span { color: #2ecc71; }
+    }
   }
 }

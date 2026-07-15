@@ -11,10 +11,18 @@
       <p class="logo-sub">Tu música, a tu manera</p>
     </div>
 
+    <!-- Ilustración central -->
+    <div class="illustration">
+      <div class="wave-circle wave1"></div>
+      <div class="wave-circle wave2"></div>
+      <div class="wave-circle wave3"></div>
+      <ion-icon name="headset" class="illustration-icon"></ion-icon>
+    </div>
+
     <!-- Botones -->
     <div class="buttons-section">
       <div class="spotify-btn" (click)="loginSpotify()">
-        <ion-icon name="logo-apple"></ion-icon>
+        <ion-icon name="musical-note" class="spotify-icon"></ion-icon>
         <span>Continuar con Spotify Premium</span>
       </div>
       <div class="guest-btn" (click)="continueAsGuest()">

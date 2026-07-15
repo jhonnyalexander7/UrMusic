@@ -21,7 +21,6 @@
     <ion-icon name="heart-outline" class="heart-icon"></ion-icon>
   </div>
 
-
   <!-- Progress bar -->
   <div class="progress-section">
     <input type="range" min="0" max="100" [value]="progress" class="progress-bar" (input)="onSeek($event)"/>
@@ -49,9 +48,9 @@
 
   <!-- Actions -->
   <div class="actions">
-    <div class="action-btn">
-      <ion-icon name="share-outline"></ion-icon>
-      <span>Compartir</span>
+    <div class="action-btn" [class.highlight-green]="isSaved" (click)="toggleDownload()">
+      <ion-icon [name]="isSaved ? 'checkmark-circle' : 'download-outline'"></ion-icon>
+      <span>{{ isSaved ? 'Guardado' : 'Descargar' }}</span>
     </div>
     <div class="action-btn highlight" (click)="goToEditor()">
       <ion-icon name="cut"></ion-icon>
@@ -65,9 +64,9 @@
       <ion-icon name="list"></ion-icon>
       <span>Cola</span>
     </div>
-    <div class="action-btn">
-      <ion-icon name="mic"></ion-icon>
-      <span>Mi voz</span>
+    <div class="action-btn" (click)="goToBluetooth()">
+      <ion-icon name="bluetooth"></ion-icon>
+      <span>Bluetooth</span>
     </div>
   </div>
 

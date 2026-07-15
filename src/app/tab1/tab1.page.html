@@ -44,17 +44,35 @@
     </div>
   </div>
 
+  <!-- Acceso a Conciertos -->
+  <div class="section">
+    <div class="concerts-banner" (click)="goToConcerts()">
+      <ion-icon name="location-sharp"></ion-icon>
+      <div class="concerts-banner-text">
+        <p class="banner-title">Conciertos cerca de ti</p>
+        <p class="banner-sub">Descubre eventos en tu ciudad</p>
+      </div>
+      <ion-icon name="chevron-forward"></ion-icon>
+    </div>
+  </div>
+
   <!-- Para ti -->
   <div class="section">
     <h3 class="section-title">Para ti</h3>
-    <div class="artist-card" *ngFor="let artist of artists; let i = index" (click)="openArtist(artist)">
+    <div class="artist-card" *ngFor="let artist of artists" (click)="openArtist(artist)">
       <img class="artist-avatar" [src]="artist.image" [alt]="artist.name"/>
       <div class="artist-info">
         <p class="artist-card-name">{{ artist.name }}</p>
         <p class="artist-genre">{{ artist.genres[0] || 'Música' }}</p>
       </div>
-      <span class="match-badge">{{ 98 - (i * 4) }}%</span>
-      <ion-button fill="outline" size="small" class="seguir-btn" (click)="$event.stopPropagation()">Seguir</ion-button>
+      <ion-button
+        fill="outline"
+        size="small"
+        class="seguir-btn"
+        [class.following]="isFollowing(artist)"
+        (click)="toggleFollow(artist, $event)">
+        {{ isFollowing(artist) ? 'Siguiendo' : 'Seguir' }}
+      </ion-button>
     </div>
   </div>
 

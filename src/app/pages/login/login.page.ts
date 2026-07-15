@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonContent, IonIcon } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { musicalNotes, logoApple } from 'ionicons/icons';
+import { musicalNotes, headset, musicalNote } from 'ionicons/icons';
 import { SpotifyAuthService } from '../../services/spotify-auth';
 
 @Component({
@@ -18,7 +18,7 @@ export class LoginPage {
     private router: Router,
     private spotifyAuth: SpotifyAuthService
   ) {
-    addIcons({ musicalNotes, logoApple });
+    addIcons({ musicalNotes, headset, musicalNote });
   }
 
   loginSpotify() {

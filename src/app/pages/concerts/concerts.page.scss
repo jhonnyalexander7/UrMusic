@@ -1,0 +1,90 @@
+ion-content.concerts-page {
+  --background: #1c1c1e;
+}
+
+.concerts-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 50px 20px 16px;
+
+  ion-icon { font-size: 24px; color: #fff; cursor: pointer; }
+  h1 { color: #fff; font-size: 20px; font-weight: 700; margin: 0; }
+}
+
+.map-container {
+  width: 100%;
+  height: 260px;
+  margin-bottom: 16px;
+}
+
+.section {
+  padding: 0 20px 100px;
+
+  .section-label {
+    color: #555;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0 0 12px;
+  }
+}
+
+.loading-state {
+  text-align: center;
+  padding: 30px;
+  p { color: #888; font-size: 13px; }
+}
+
+.concert-card {
+  background: #2c2c2e;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .concert-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #fc3c4422;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    ion-icon { font-size: 22px; color: #fc3c44; }
+  }
+
+  .concert-info {
+    flex: 1;
+
+    .concert-artist { color: #fff; font-size: 14px; font-weight: 700; margin: 0; }
+    .concert-venue { color: #aaa; font-size: 12px; margin: 3px 0 6px; }
+
+    .concert-date {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      ion-icon { font-size: 13px; color: #666; }
+      span { color: #666; font-size: 11px; }
+    }
+  }
+}
+
+// Estilos para los marcadores del mapa Leaflet
+::ng-deep .user-marker .user-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #45aaf2;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(69, 170, 242, 0.6);
+}
+
+::ng-deep .concert-marker .concert-pin {
+  font-size: 20px;
+}

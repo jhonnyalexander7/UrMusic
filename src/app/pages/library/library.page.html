@@ -1,0 +1,72 @@
+<ion-content [fullscreen]="true" class="library-page">
+
+  <div class="library-header">
+    <h1>Biblioteca</h1>
+  </div>
+
+  <!-- Tabs internos -->
+  <div class="library-tabs">
+    <div class="lib-tab" [class.active]="activeTab === 'songs'" (click)="activeTab = 'songs'">
+      <ion-icon name="musical-notes-outline"></ion-icon>
+      <span>Canciones</span>
+    </div>
+    <div class="lib-tab" [class.active]="activeTab === 'artists'" (click)="activeTab = 'artists'">
+      <ion-icon name="people-outline"></ion-icon>
+      <span>Artistas</span>
+    </div>
+  </div>
+
+  <!-- ── CANCIONES ── -->
+  <div *ngIf="activeTab === 'songs'" class="tab-content">
+
+    <div class="empty-state" *ngIf="savedTracks.length === 0">
+      <div class="empty-icon-wrap">
+        <ion-icon name="musical-notes-outline"></ion-icon>
+      </div>
+      <p class="empty-title">Tu biblioteca está vacía</p>
+      <p class="empty-sub">Guarda canciones tocando el botón de descarga en el reproductor</p>
+    </div>
+
+    <p class="count-label" *ngIf="savedTracks.length > 0">{{ savedTracks.length }} canciones</p>
+
+    <div class="section" *ngIf="savedTracks.length > 0">
+      <div class="track-row" *ngFor="let track of savedTracks" (click)="openPlayer(track)">
+        <img [src]="track.image || 'assets/default-cover.png'" [alt]="track.name" class="track-img"/>
+        <div class="track-info">
+          <p class="track-name">{{ track.name }}</p>
+          <p class="track-artist">{{ track.artist }}</p>
+        </div>
+        <div class="track-actions">
+          <ion-icon name="play-circle" class="play-icon"></ion-icon>
+          <ion-icon name="trash-outline" class="trash-icon" (click)="removeTrack(track, $event)"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ARTISTAS ── -->
+  <div *ngIf="activeTab === 'artists'" class="tab-content">
+
+    <div class="empty-state" *ngIf="followedArtists.length === 0">
+      <div class="empty-icon-wrap">
+        <ion-icon name="people-outline"></ion-icon>
+      </div>
+      <p class="empty-title">No sigues ningún artista</p>
+      <p class="empty-sub">Toca "Seguir" en el perfil de un artista para verlo aquí</p>
+    </div>
+
+    <p class="count-label" *ngIf="followedArtists.length > 0">{{ followedArtists.length }} artistas</p>
+
+    <div class="section" *ngIf="followedArtists.length > 0">
+      <div class="artist-row" *ngFor="let artist of followedArtists" (click)="openArtist(artist)">
+        <img [src]="artist.image" [alt]="artist.name" class="artist-img"/>
+        <div class="artist-info">
+          <p class="artist-name">{{ artist.name }}</p>
+          <p class="artist-genre">{{ artist.genres?.[0] || 'Música' }}</p>
+        </div>
+        <ion-icon name="close-circle" class="unfollow-icon" (click)="unfollowArtist(artist, $event)"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

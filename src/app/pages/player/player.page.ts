@@ -6,10 +6,14 @@ import { addIcons } from 'ionicons';
 import {
   chevronDown, ellipsisHorizontal, heartOutline, heart,
   playSkipBack, playSkipForward, play, pause,
-  volumeLow, volumeHigh, shareOutline, cut, list, mic, analytics
+  volumeLow, volumeHigh, shareOutline, cut, list, mic, analytics,
+  downloadOutline, checkmarkCircle, bluetooth
 } from 'ionicons/icons';
 import { PlayerService } from '../../services/player';
 import { SpotifyAuthService } from '../../services/spotify-auth';
+import { GlobalPlayerService } from '../../services/global-player';
+import { LibraryService } from '../../services/library';
+import { ListeningHistoryService } from '../../services/listening-history';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -33,6 +37,7 @@ export class PlayerPage implements OnInit, OnDestroy {
   currentTime: string = '0:00';
   duration: string = '0:00';
   durationMs: number = 0;
+  isSaved: boolean = false;
 
   private subs: Subscription[] = [];
 
@@ -40,21 +45,42 @@ export class PlayerPage implements OnInit, OnDestroy {
     private router: Router,
     private playerService: PlayerService,
     private spotifyAuth: SpotifyAuthService,
+    private globalPlayer: GlobalPlayerService,
+    private libraryService: LibraryService,
+    private listeningHistory: ListeningHistoryService,
     private cdr: ChangeDetectorRef
   ) {
     addIcons({
       chevronDown, ellipsisHorizontal, heartOutline, heart,
       playSkipBack, playSkipForward, play, pause,
-      volumeLow, volumeHigh, shareOutline, cut, list, mic, analytics
+      volumeLow, volumeHigh, shareOutline, cut, list, mic, analytics,
+      downloadOutline, checkmarkCircle, bluetooth
     });
   }
 
   ngOnInit() {
-    // Obtener track del estado
     const state = history.state;
     if (state && state.track) {
       this.track = state.track;
     }
+
+    this.globalPlayer.setCurrentTrack(this.track);
+    this.checkIfSaved();
+    this.registerCurrentTrack();
+
+    this.subs.push(
+      this.globalPlayer.currentTrack$.subscribe(t => {
+        if (t && t.uri !== this.track?.uri) {
+          this.track = t;
+          this.checkIfSaved();
+          this.registerCurrentTrack();
+          if (this.spotifyAuth.isLoggedIn() && t.uri) {
+            this.playerService.playTrack(t.uri);
+          }
+          this.cdr.detectChanges();
+        }
+      })
+    );
 
     if (this.spotifyAuth.isLoggedIn()) {
       this.playerService.initPlayer();
@@ -62,6 +88,7 @@ export class PlayerPage implements OnInit, OnDestroy {
       this.subs.push(
         this.playerService.isPlaying$.subscribe(v => {
           this.isPlaying = v;
+          this.globalPlayer.setPlaying(v);
           this.cdr.detectChanges();
         }),
 
@@ -81,12 +108,14 @@ export class PlayerPage implements OnInit, OnDestroy {
           this.cdr.detectChanges();
         }),
 
-        // Detectar cuando navegamos al player con nueva canción
         this.router.events.subscribe(event => {
           if (event instanceof NavigationEnd && event.url === '/player') {
             const newState = history.state;
             if (newState?.track && newState.track.uri !== this.track?.uri) {
               this.track = newState.track;
+              this.checkIfSaved();
+              this.registerCurrentTrack();
+              this.globalPlayer.setCurrentTrack(this.track);
               if (this.track?.uri) {
                 this.playerService.playTrack(this.track.uri);
               }
@@ -97,9 +126,22 @@ export class PlayerPage implements OnInit, OnDestroy {
       );
 
       if (this.track?.uri) {
-  setTimeout(() => this.playerService.playTrack(this.track.uri), 1000);
-}
+        setTimeout(() => this.playerService.playTrack(this.track.uri), 1000);
+      }
     }
+  }
+
+  registerCurrentTrack() {
+    this.listeningHistory.registerPlay(this.track);
+  }
+
+  checkIfSaved() {
+    this.isSaved = this.libraryService.isSaved(this.track);
+  }
+
+  toggleDownload() {
+    this.libraryService.toggleSave(this.track);
+    this.checkIfSaved();
   }
 
   formatTime(ms: number): string {
@@ -124,11 +166,25 @@ export class PlayerPage implements OnInit, OnDestroy {
   }
 
   previous() {
-    if (this.spotifyAuth.isLoggedIn()) this.playerService.previous();
+    const prevTrack = this.globalPlayer.getPreviousTrack();
+    if (prevTrack) {
+      this.track = prevTrack;
+      this.checkIfSaved();
+      if (this.spotifyAuth.isLoggedIn() && prevTrack.uri) {
+        this.playerService.playTrack(prevTrack.uri);
+      }
+    }
   }
 
   next() {
-    if (this.spotifyAuth.isLoggedIn()) this.playerService.next();
+    const nextTrack = this.globalPlayer.getNextTrack();
+    if (nextTrack) {
+      this.track = nextTrack;
+      this.checkIfSaved();
+      if (this.spotifyAuth.isLoggedIn() && nextTrack.uri) {
+        this.playerService.playTrack(nextTrack.uri);
+      }
+    }
   }
 
   goBack() {
@@ -143,6 +199,10 @@ export class PlayerPage implements OnInit, OnDestroy {
     this.router.navigate(['/analysis'], {
       state: { track: this.track }
     });
+  }
+
+  goToBluetooth() {
+    this.router.navigate(['/bluetooth-devices']);
   }
 
   ngOnDestroy() {

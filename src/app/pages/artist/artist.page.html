@@ -1,32 +1,77 @@
 <ion-content [fullscreen]="true" class="artist-page">
 
-  <!-- Header con foto del artista -->
-  <div class="artist-header" [style.background-image]="'url(' + artist?.image + ')'">
-    <div class="header-overlay">
-      <ion-icon name="chevron-down" (click)="goBack()"></ion-icon>
-      <div class="artist-info">
-        <h1>{{ artist?.name }}</h1>
-        <div class="genres">
-          <span class="genre-tag" *ngFor="let genre of artist?.genres?.slice(0,3)">{{ genre }}</span>
+  <!-- Vista del artista -->
+  <div *ngIf="!showAlbumTracks">
+
+    <div class="artist-header" [style.background-image]="'url(' + artist?.image + ')'">
+      <div class="header-overlay">
+        <ion-icon name="chevron-down" (click)="goBack()"></ion-icon>
+        <div class="artist-info">
+          <h1>{{ artist?.name }}</h1>
+          <div class="genres">
+            <span class="genre-tag" *ngFor="let genre of artist?.genres?.slice(0,3)">{{ genre }}</span>
+          </div>
+        </div>
+        <div class="follow-btn" [class.following]="isFollowing" (click)="toggleFollow()">
+  <ion-icon *ngIf="isFollowing" name="checkmark"></ion-icon>
+  <span>{{ isFollowing ? 'Siguiendo' : 'Seguir' }}</span>
+</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Top canciones</h3>
+      <div class="track-row" *ngFor="let track of tracks; let i = index" (click)="openPlayer(track)">
+        <span class="track-num">{{ i + 1 }}</span>
+        <img [src]="track.image" [alt]="track.name" class="track-img"/>
+        <div class="track-info">
+          <p class="track-name">{{ track.name }}</p>
+          <p class="track-album">{{ track.album }}</p>
+        </div>
+        <span class="track-duration">{{ formatDuration(track.duration) }}</span>
+        <ion-icon name="ellipsis-vertical" class="track-more"></ion-icon>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3 class="section-title">Álbumes</h3>
+      <div class="albums-scroll">
+        <div class="album-card" *ngFor="let album of albums" (click)="openAlbum(album)">
+          <img [src]="album.image" [alt]="album.name" class="album-img"/>
+          <p class="album-name">{{ album.name }}</p>
+          <p class="album-year">{{ album.year }}</p>
         </div>
       </div>
-      <div class="follow-btn">Seguir</div>
     </div>
+
   </div>
 
-  <!-- Top canciones -->
-  <div class="section">
-    <h3 class="section-title">Top canciones</h3>
-    <div class="track-row" *ngFor="let track of tracks; let i = index" (click)="openPlayer(track)">
-      <span class="track-num">{{ i + 1 }}</span>
-      <img [src]="track.image" [alt]="track.name" class="track-img"/>
-      <div class="track-info">
-        <p class="track-name">{{ track.name }}</p>
-        <p class="track-album">{{ track.album }}</p>
+  <!-- Vista del álbum -->
+  <div *ngIf="showAlbumTracks">
+
+    <div class="album-header" [style.background-image]="'url(' + selectedAlbum?.image + ')'">
+      <div class="header-overlay">
+        <ion-icon name="chevron-down" (click)="closeAlbum()"></ion-icon>
+        <div class="artist-info">
+          <h1>{{ selectedAlbum?.name }}</h1>
+          <p class="album-meta">{{ artist?.name }} · {{ selectedAlbum?.year }}</p>
+        </div>
       </div>
-      <span class="track-duration">{{ formatDuration(track.duration) }}</span>
-      <ion-icon name="ellipsis-vertical" class="track-more"></ion-icon>
     </div>
+
+    <div class="section">
+      <h3 class="section-title">Canciones</h3>
+      <div class="track-row" *ngFor="let track of selectedAlbumTracks; let i = index" (click)="openPlayerFromAlbum(track)">
+        <span class="track-num">{{ i + 1 }}</span>
+        <div class="track-info" style="margin-left: 8px">
+          <p class="track-name">{{ track.name }}</p>
+          <p class="track-album">{{ track.artist }}</p>
+        </div>
+        <span class="track-duration">{{ formatDuration(track.duration) }}</span>
+        <ion-icon name="ellipsis-vertical" class="track-more"></ion-icon>
+      </div>
+    </div>
+
   </div>
 
 </ion-content>
