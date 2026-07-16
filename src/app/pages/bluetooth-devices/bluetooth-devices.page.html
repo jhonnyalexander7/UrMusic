@@ -1,0 +1,55 @@
+<ion-content [fullscreen]="true" class="bluetooth-page">
+
+  <div class="bluetooth-header">
+    <ion-icon name="chevron-down" (click)="goBack()"></ion-icon>
+    <h1>Dispositivos Bluetooth</h1>
+  </div>
+
+  <!-- Dispositivo conectado -->
+  <div class="connected-card" *ngIf="connectedDevice">
+    <ion-icon name="headset"></ion-icon>
+    <div class="connected-info">
+      <p class="connected-name">{{ connectedDevice.name }}</p>
+      <p class="connected-status">Conectado</p>
+    </div>
+    <div class="disconnect-btn" (click)="disconnect()">Desconectar</div>
+  </div>
+
+  <!-- Error -->
+  <div class="error-card" *ngIf="errorMessage">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <!-- Estado de escaneo -->
+  <div class="scan-status">
+    <div class="scan-indicator" [class.scanning]="isScanning"></div>
+    <p>{{ isScanning ? 'Buscando dispositivos cercanos...' : 'Escaneo completado' }}</p>
+    <ion-icon name="refresh" class="rescan-btn" (click)="startScan()"></ion-icon>
+  </div>
+
+  <!-- Lista de dispositivos encontrados -->
+  <div class="section">
+    <p class="section-label">DISPOSITIVOS DISPONIBLES</p>
+
+    <div class="empty-devices" *ngIf="devices.length === 0 && !isScanning">
+      <ion-icon name="bluetooth"></ion-icon>
+      <p>No se encontraron dispositivos. Asegúrate de que tus auriculares o parlante estén en modo de emparejamiento.</p>
+    </div>
+
+    <div class="device-row" *ngFor="let device of devices" (click)="connectTo(device)">
+      <div class="device-icon">
+        <ion-icon name="headset"></ion-icon>
+      </div>
+      <div class="device-info">
+        <p class="device-name">{{ device.name }}</p>
+        <p class="device-signal">Señal: {{ device.rssi }} dBm</p>
+      </div>
+      <ion-icon
+        *ngIf="connectedDevice?.deviceId === device.deviceId"
+        name="checkmark-circle"
+        class="connected-check">
+      </ion-icon>
+    </div>
+  </div>
+
+</ion-content>

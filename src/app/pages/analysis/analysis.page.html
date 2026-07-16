@@ -1,0 +1,190 @@
+<ion-content [fullscreen]="true" class="analysis-page">
+
+  <!-- Header -->
+  <div class="analysis-header">
+    <ion-icon name="chevron-down" (click)="goBack()"></ion-icon>
+    <h1>Análisis de canción</h1>
+    <ion-icon name="share-outline"></ion-icon>
+  </div>
+
+  <!-- Mini player -->
+  <div class="mini-player">
+    <img [src]="track?.image" class="mini-art"/>
+    <div class="mini-info">
+      <p class="mini-name">{{ track?.name || 'Hawái' }}</p>
+      <p class="mini-artist">{{ track?.artist || 'Maluma' }}</p>
+    </div>
+    <ion-icon name="pause-circle" class="mini-pause"></ion-icon>
+  </div>
+
+  <!-- Stats pills reales de Spotify -->
+  <div class="stats-row">
+    <div class="stat-pill">
+      <span>{{ isLoadingFeatures ? '...' : audioFeatures.bpm }}</span>
+      <p>BPM</p>
+    </div>
+    <div class="stat-pill">
+      <span>{{ audioFeatures.key }}</span>
+      <p>clave</p>
+    </div>
+    <div class="stat-pill">
+      <span>{{ audioFeatures.timeSignature }}</span>
+      <p>compás</p>
+    </div>
+  </div>
+
+  <!-- Características de audio reales -->
+  <div class="section">
+    <p class="section-label">CARACTERÍSTICAS DE AUDIO</p>
+    <div class="feature-card">
+      <div class="feature-row">
+        <span class="feature-name">Energía</span>
+        <div class="feature-bar">
+          <div class="feature-fill energy" [style.width.%]="audioFeatures.energy"></div>
+        </div>
+        <span class="feature-val">{{ audioFeatures.energy }}%</span>
+      </div>
+      <div class="feature-row">
+        <span class="feature-name">Bailabilidad</span>
+        <div class="feature-bar">
+          <div class="feature-fill dance" [style.width.%]="audioFeatures.danceability"></div>
+        </div>
+        <span class="feature-val">{{ audioFeatures.danceability }}%</span>
+      </div>
+      <div class="feature-row">
+        <span class="feature-name">Positividad</span>
+        <div class="feature-bar">
+          <div class="feature-fill valence" [style.width.%]="audioFeatures.valence"></div>
+        </div>
+        <span class="feature-val">{{ audioFeatures.valence }}%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stems -->
+  <div class="section">
+    <p class="section-label">STEMS — CAPAS DE LA CANCIÓN</p>
+
+    <div class="stem-card">
+      <div class="stem-icon" style="background:#ff6b9d22">
+        <ion-icon name="mic" style="color:#ff6b9d"></ion-icon>
+      </div>
+      <div class="stem-info">
+        <p class="stem-name">Voz</p>
+        <p class="stem-sub">Vocal principal</p>
+      </div>
+      <div class="stem-controls">
+        <input type="range" min="0" max="100" value="80" class="stem-slider pink"/>
+        <div class="stem-btns">
+          <span class="stem-btn">S</span>
+          <span class="stem-btn">M</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stem-card">
+      <div class="stem-icon" style="background:#ff9f4322">
+        <ion-icon name="musical-notes" style="color:#ff9f43"></ion-icon>
+      </div>
+      <div class="stem-info">
+        <p class="stem-name">Batería</p>
+        <p class="stem-sub">Kick, snare, hi-hat</p>
+      </div>
+      <div class="stem-controls">
+        <input type="range" min="0" max="100" value="70" class="stem-slider orange"/>
+        <div class="stem-btns">
+          <span class="stem-btn">S</span>
+          <span class="stem-btn">M</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stem-card">
+      <div class="stem-icon" style="background:#26de8122">
+        <ion-icon name="radio" style="color:#26de81"></ion-icon>
+      </div>
+      <div class="stem-info">
+        <p class="stem-name">Bajo</p>
+        <p class="stem-sub">Línea de bajo</p>
+      </div>
+      <div class="stem-controls">
+        <input type="range" min="0" max="100" value="65" class="stem-slider green"/>
+        <div class="stem-btns">
+          <span class="stem-btn">S</span>
+          <span class="stem-btn">M</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stem-card">
+      <div class="stem-icon" style="background:#45aaf222">
+        <ion-icon name="piano" style="color:#45aaf2"></ion-icon>
+      </div>
+      <div class="stem-info">
+        <p class="stem-name">Sintetizadores</p>
+        <p class="stem-sub">Melodía y acordes</p>
+      </div>
+      <div class="stem-controls">
+        <input type="range" min="0" max="100" value="55" class="stem-slider blue"/>
+        <div class="stem-btns">
+          <span class="stem-btn">S</span>
+          <span class="stem-btn">M</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stem-card">
+      <div class="stem-icon" style="background:#a55eea22">
+        <ion-icon name="apps" style="color:#a55eea"></ion-icon>
+      </div>
+      <div class="stem-info">
+        <p class="stem-name">Otros</p>
+        <p class="stem-sub">Instrumentos adicionales</p>
+      </div>
+      <div class="stem-controls">
+        <input type="range" min="0" max="100" value="40" class="stem-slider purple"/>
+        <div class="stem-btns">
+          <span class="stem-btn">S</span>
+          <span class="stem-btn">M</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ritmo y estructura -->
+  <div class="section">
+    <p class="section-label">RITMO Y ESTRUCTURA</p>
+    <div class="structure-card">
+      <div class="timeline">
+        <div class="tl-block gray"><span>Intro</span></div>
+        <div class="tl-block blue"><span>Verso 1</span></div>
+        <div class="tl-block red"><span>Coro</span></div>
+        <div class="tl-block blue"><span>Verso 2</span></div>
+        <div class="tl-block red"><span>Coro</span></div>
+        <div class="tl-block gray"><span>Final</span></div>
+      </div>
+      <div class="bpm-viz">
+        <div class="bpm-bar" *ngFor="let bar of bpmBars" [style.height]="bar + 'px'"></div>
+      </div>
+      <div class="rhythm-stats">
+        <div class="rhythm-row">
+          <span class="rhythm-label">Compás</span>
+          <span class="rhythm-val">{{ audioFeatures.timeSignature }}</span>
+        </div>
+        <div class="rhythm-row">
+          <span class="rhythm-label">Duración</span>
+          <span class="rhythm-val">{{ formatDuration(audioFeatures.duration) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export button -->
+  <div class="section">
+    <div class="export-btn">
+      <ion-icon name="download"></ion-icon>
+      <span>Exportar análisis</span>
+    </div>
+  </div>
+
+</ion-content>

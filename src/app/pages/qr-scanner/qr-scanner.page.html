@@ -1,0 +1,51 @@
+<ion-content [fullscreen]="true" class="qr-page">
+
+  <div class="qr-header">
+    <ion-icon name="chevron-down" (click)="goBack()"></ion-icon>
+    <h1>Compartir por QR</h1>
+  </div>
+
+  <!-- Mi código QR para compartir -->
+  <div class="section" *ngIf="track">
+    <p class="section-label">TU CANCIÓN — ESCANEA PARA COMPARTIR</p>
+    <div class="qr-card">
+      <img [src]="qrImageUrl" alt="Código QR" class="qr-image" *ngIf="qrImageUrl"/>
+      <p class="qr-song-name">{{ track.name }}</p>
+      <p class="qr-song-artist">{{ track.artist }}</p>
+    </div>
+  </div>
+
+  <div class="divider">
+    <span>O</span>
+  </div>
+
+  <!-- Escanear QR de otro usuario -->
+  <div class="section">
+    <p class="section-label">ESCANEAR CÓDIGO DE UN AMIGO</p>
+
+    <div class="scan-btn" (click)="startScan()" *ngIf="!isScanning">
+      <ion-icon name="scan-outline"></ion-icon>
+      <span>Abrir cámara y escanear</span>
+    </div>
+
+    <div class="scanning-state" *ngIf="isScanning">
+      <div class="scan-pulse"></div>
+      <p>Escaneando...</p>
+    </div>
+
+    <div class="error-card" *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </div>
+
+    <!-- Resultado del escaneo -->
+    <div class="scanned-result" *ngIf="scannedTrack">
+      <ion-icon name="checkmark-circle"></ion-icon>
+      <div class="scanned-info">
+        <p class="scanned-name">{{ scannedTrack.name }}</p>
+        <p class="scanned-artist">{{ scannedTrack.artist }}</p>
+      </div>
+      <div class="play-scanned-btn" (click)="playScannedTrack()">Reproducir</div>
+    </div>
+  </div>
+
+</ion-content>

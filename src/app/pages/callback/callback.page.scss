@@ -1,0 +1,11 @@
+ion-content.callback-page {
+  --background: #1c1c1e;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  p { color: #fff; font-size: 16px; }
+}

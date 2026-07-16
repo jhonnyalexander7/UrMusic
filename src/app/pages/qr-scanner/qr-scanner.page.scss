@@ -1,0 +1,140 @@
+ion-content.qr-page {
+  --background: #1c1c1e;
+}
+
+.qr-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 50px 20px 16px;
+
+  ion-icon { font-size: 24px; color: #fff; cursor: pointer; }
+  h1 { color: #fff; font-size: 20px; font-weight: 700; margin: 0; }
+}
+
+.section {
+  padding: 0 20px 16px;
+
+  .section-label {
+    color: #555;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0 0 12px;
+  }
+}
+
+.qr-card {
+  background: linear-gradient(135deg, #2c2c2e, #1a1a1a);
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .qr-image {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 16px;
+  }
+
+  .qr-song-name { color: #fff; font-size: 15px; font-weight: 700; margin: 0; }
+  .qr-song-artist { color: #888; font-size: 12px; margin: 4px 0 0; }
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  padding: 8px 20px 16px;
+  color: #555;
+  font-size: 11px;
+  font-weight: 700;
+
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #333;
+  }
+
+  span { padding: 0 12px; }
+}
+
+.scan-btn {
+  background: #2c2c2e;
+  border: 1px dashed #444;
+  border-radius: 14px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+
+  ion-icon { font-size: 40px; color: #fc3c44; }
+  span { color: #fff; font-size: 13px; font-weight: 600; }
+}
+
+.scanning-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  gap: 12px;
+
+  .scan-pulse {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid #fc3c44;
+    animation: scan-pulse 1s infinite;
+  }
+
+  p { color: #888; font-size: 13px; margin: 0; }
+}
+
+@keyframes scan-pulse {
+  0% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+.error-card {
+  background: #2e1a1a;
+  border: 1px solid #fc3c44;
+  border-radius: 12px;
+  padding: 14px;
+
+  p { color: #ff9494; font-size: 12px; margin: 0; }
+}
+
+.scanned-result {
+  background: #1a2e1a;
+  border: 1px solid #2ecc71;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+
+  ion-icon { font-size: 26px; color: #2ecc71; flex-shrink: 0; }
+
+  .scanned-info {
+    flex: 1;
+    .scanned-name { color: #fff; font-size: 13px; font-weight: 700; margin: 0; }
+    .scanned-artist { color: #888; font-size: 11px; margin: 2px 0 0; }
+  }
+
+  .play-scanned-btn {
+    background: #fc3c44;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+}

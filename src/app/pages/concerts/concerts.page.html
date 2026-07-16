@@ -1,0 +1,34 @@
+<ion-content [fullscreen]="true" class="concerts-page">
+
+  <div class="concerts-header">
+    <ion-icon name="chevron-down" (click)="goBack()"></ion-icon>
+    <h1>Conciertos cerca de ti</h1>
+  </div>
+
+  <!-- Mapa interactivo -->
+  <div id="concerts-map" class="map-container"></div>
+
+  <!-- Lista de conciertos -->
+  <div class="section">
+    <p class="section-label">PRÓXIMOS EVENTOS</p>
+
+    <div class="loading-state" *ngIf="isLoading">
+      <p>Buscando tu ubicación...</p>
+    </div>
+
+    <div class="concert-card" *ngFor="let concert of concerts">
+      <div class="concert-icon">
+        <ion-icon name="location-sharp"></ion-icon>
+      </div>
+      <div class="concert-info">
+        <p class="concert-artist">{{ concert.artist }}</p>
+        <p class="concert-venue">{{ concert.venue }}</p>
+        <div class="concert-date">
+          <ion-icon name="calendar"></ion-icon>
+          <span>{{ concert.date }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

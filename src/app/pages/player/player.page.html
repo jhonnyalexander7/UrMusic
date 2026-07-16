@@ -1,0 +1,73 @@
+<ion-content [fullscreen]="true" class="player-page">
+
+  <!-- Top bar -->
+  <div class="player-topbar">
+    <ion-icon name="chevron-down" (click)="goBack()"></ion-icon>
+    <span>Reproduciendo</span>
+    <ion-icon name="ellipsis-horizontal"></ion-icon>
+  </div>
+
+  <!-- Album art -->
+  <div class="album-container">
+    <img [src]="track?.image" [alt]="track?.name" class="album-art"/>
+  </div>
+
+  <!-- Song info -->
+  <div class="song-info">
+    <div class="song-text">
+      <h2>{{ track?.name || 'Hawái' }}</h2>
+      <p>{{ track?.artist || 'Maluma' }}</p>
+    </div>
+    <ion-icon name="heart-outline" class="heart-icon"></ion-icon>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-section">
+    <input type="range" min="0" max="100" [value]="progress" class="progress-bar" (input)="onSeek($event)"/>
+    <div class="time-labels">
+      <span>{{ currentTime }}</span>
+      <span>{{ duration }}</span>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <ion-icon name="play-skip-back" (click)="previous()"></ion-icon>
+    <div class="play-btn" (click)="togglePlay()">
+      <ion-icon [name]="isPlaying ? 'pause' : 'play'"></ion-icon>
+    </div>
+    <ion-icon name="play-skip-forward" (click)="next()"></ion-icon>
+  </div>
+
+  <!-- Volume -->
+  <div class="volume-section">
+    <ion-icon name="volume-low"></ion-icon>
+    <input type="range" min="0" max="100" value="70" class="volume-bar"/>
+    <ion-icon name="volume-high"></ion-icon>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <div class="action-btn" [class.highlight-green]="isSaved" (click)="toggleDownload()">
+      <ion-icon [name]="isSaved ? 'checkmark-circle' : 'download-outline'"></ion-icon>
+      <span>{{ isSaved ? 'Guardado' : 'Descargar' }}</span>
+    </div>
+    <div class="action-btn highlight" (click)="goToEditor()">
+      <ion-icon name="cut"></ion-icon>
+      <span>Editar</span>
+    </div>
+    <div class="action-btn highlight-blue" (click)="goToAnalysis()">
+      <ion-icon name="analytics"></ion-icon>
+      <span>Analizar</span>
+    </div>
+    <div class="action-btn" (click)="goToQrShare()">
+      <ion-icon name="qr-code-outline"></ion-icon>
+      <span>Compartir QR</span>
+    </div>
+    <div class="action-btn" (click)="goToBluetooth()">
+      <ion-icon name="bluetooth"></ion-icon>
+      <span>Bluetooth</span>
+    </div>
+  </div>
+
+</ion-content>

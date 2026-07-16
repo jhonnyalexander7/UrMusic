@@ -1,0 +1,321 @@
+ion-content.editor-page {
+  --background: #1c1c1e;
+}
+
+.editor-header {
+  padding: 24px 20px 8px;
+  h1 { color: #fc3c44; font-size: 28px; font-weight: 700; margin: 0; }
+}
+
+.mini-player {
+  margin: 12px 20px;
+  background: #2c2c2e;
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .mini-art {
+    width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0;
+    object-fit: cover;
+    background: linear-gradient(135deg, #f5a623, #e8472a);
+  }
+  .mini-info { flex: 1; overflow: hidden; }
+  .mini-song {
+    color: #fff; font-size: 13px; font-weight: 600; margin: 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .mini-artist { color: #888; font-size: 11px; margin: 2px 0 0; }
+  .mini-pause { color: #fc3c44; font-size: 28px; flex-shrink: 0; }
+
+  &.empty {
+    justify-content: center;
+    gap: 8px;
+
+    .empty-icon { font-size: 20px; color: #555; }
+    .empty-text { color: #666; font-size: 12px; margin: 0; }
+  }
+}
+
+.waveform-card.soundcloud-style {
+  margin: 0 20px 16px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 10px 8px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+
+  .waveform {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .wave-bar {
+    flex: 1;
+    min-width: 2px;
+    border-radius: 1px;
+    background: #4a4a4a;
+    transition: height 0.15s ease-in-out, background 0.2s;
+
+    &.played {
+      background: linear-gradient(180deg, #ff6a3d, #fc3c44);
+    }
+
+    &.animating {
+      background: linear-gradient(180deg, #ff8c5a, #fc3c44);
+      box-shadow: 0 0 6px rgba(252, 60, 68, 0.5);
+    }
+  }
+}
+
+.section {
+  padding: 0 20px 16px;
+
+  .section-label {
+    color: #555;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0 0 10px;
+  }
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  .slider-name { color: #ccc; font-size: 12px; width: 50px; flex-shrink: 0; }
+  .slider-val { color: #555; font-size: 11px; width: 28px; text-align: right; flex-shrink: 0; }
+
+  .red-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 3px;
+    border-radius: 2px;
+    background: #444;
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #fc3c44;
+      cursor: pointer;
+    }
+  }
+}
+
+.audio-cards {
+  display: flex;
+  gap: 10px;
+
+  .audio-card {
+    flex: 1;
+    border-radius: 12px;
+    padding: 16px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+
+    ion-icon { font-size: 24px; }
+    .audio-title { font-size: 12px; font-weight: 600; margin: 0; text-align: center; }
+    .audio-sub { font-size: 10px; margin: 0; text-align: center; color: #888; }
+
+    &.record {
+      background: #1a0000;
+      border: 1px solid #3a0000;
+      ion-icon { color: #fc3c44; }
+      .audio-title { color: #fc3c44; }
+    }
+
+    &.import {
+      background: #2c2c2e;
+      border: 1px solid #444;
+      ion-icon { color: #fff; }
+      .audio-title { color: #fff; }
+    }
+  }
+}
+
+.sync-card {
+  background: #1a1a2e;
+  border: 1px solid #3b4bc8;
+  border-radius: 12px;
+  padding: 14px;
+
+  .sync-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+
+    ion-icon { font-size: 24px; color: #45aaf2; flex-shrink: 0; }
+
+    .sync-title {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .sync-sub {
+      color: #888;
+      font-size: 10px;
+      margin: 2px 0 0;
+      line-height: 1.3;
+    }
+  }
+
+  .sync-btn {
+    background: #fc3c44;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+
+    ion-icon { font-size: 18px; color: #fff; }
+    span { color: #fff; font-size: 12px; font-weight: 700; }
+  }
+}
+
+.save-btn {
+  background: #fc3c44;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+
+  ion-icon { color: #fff; font-size: 18px; }
+  span { color: #fff; font-size: 14px; font-weight: 700; }
+}
+
+.recording-active {
+  background: #1a0000;
+  border: 1px solid #fc3c44;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  .rec-pulse {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #fc3c44;
+    animation: pulse 1s infinite;
+  }
+
+  .rec-time {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 4px 0;
+  }
+
+  .rec-label {
+    color: #fc3c44;
+    font-size: 12px;
+    margin: 0 0 12px;
+  }
+
+  .stop-btn {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: #fc3c44;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    ion-icon { font-size: 20px; color: #fff; }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.audio-result {
+  background: #2c2c2e;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+
+  .result-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+
+    &.record-color { color: #fc3c44; }
+    &.import-color { color: #45aaf2; }
+  }
+
+  .result-info {
+    flex: 1;
+    overflow: hidden;
+
+    .result-name {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .result-sub {
+      color: #888;
+      font-size: 10px;
+      margin: 2px 0 0;
+    }
+  }
+
+  .result-play {
+    font-size: 26px;
+    color: #2ecc71;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .result-delete {
+    font-size: 20px;
+    color: #666;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .test-effects-btn {
+  margin-top: 10px;
+  background: #2c2c2e;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+
+  ion-icon { font-size: 18px; color: #2ecc71; }
+  span { color: #fff; font-size: 12px; font-weight: 600; }
+}
+}

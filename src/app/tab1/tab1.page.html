@@ -1,0 +1,79 @@
+<ion-content [fullscreen]="true" class="escuchar-page">
+
+  <app-network-banner></app-network-banner>
+
+  <!-- Mensaje offline amigable -->
+  <div class="offline-msg" *ngIf="!isOnline">
+    <ion-icon name="cloud-offline-outline"></ion-icon>
+    <div>
+      <p class="offline-title">Estás sin conexión</p>
+      <p class="offline-sub">Tu música guardada sigue disponible. Los cambios se sincronizarán cuando vuelvas a conectarte.</p>
+    </div>
+  </div>
+
+  <!-- Saludo -->
+  <div class="saludo">
+    <p class="bienvenido">Bienvenido de nuevo,</p>
+    <h1 class="nombre">Jhonny</h1>
+  </div>
+
+  <!-- Canción destacada -->
+  <div class="featured-card"
+    [style.background-image]="featuredTrack ? 'url(' + featuredTrack.image + ')' : ''"
+    (click)="openPlayer(featuredTrack)">
+    <div class="featured-overlay">
+      <div class="featured-info">
+        <h2>{{ featuredTrack?.name || 'Un Verano Sin Ti' }}</h2>
+        <p>{{ featuredTrack?.artist || 'Bad Bunny' }}</p>
+      </div>
+      <div class="play-btn">
+        <ion-icon name="play"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recientes -->
+  <div class="section">
+    <h3 class="section-title">Recientes</h3>
+    <div class="recientes-scroll">
+      <div class="album-card" *ngFor="let track of tracks" (click)="openPlayer(track)">
+        <img [src]="track.image" [alt]="track.name" class="album-art"/>
+        <p class="song-name">{{ track.name }}</p>
+        <p class="artist-name">{{ track.artist }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Acceso a Conciertos -->
+  <div class="section">
+    <div class="concerts-banner" (click)="goToConcerts()">
+      <ion-icon name="location-sharp"></ion-icon>
+      <div class="concerts-banner-text">
+        <p class="banner-title">Conciertos cerca de ti</p>
+        <p class="banner-sub">Descubre eventos en tu ciudad</p>
+      </div>
+      <ion-icon name="chevron-forward"></ion-icon>
+    </div>
+  </div>
+
+  <!-- Para ti -->
+  <div class="section">
+    <h3 class="section-title">Para ti</h3>
+    <div class="artist-card" *ngFor="let artist of artists" (click)="openArtist(artist)">
+      <img class="artist-avatar" [src]="artist.image" [alt]="artist.name"/>
+      <div class="artist-info">
+        <p class="artist-card-name">{{ artist.name }}</p>
+        <p class="artist-genre">{{ artist.genres[0] || 'Música' }}</p>
+      </div>
+      <ion-button
+        fill="outline"
+        size="small"
+        class="seguir-btn"
+        [class.following]="isFollowing(artist)"
+        (click)="toggleFollow(artist, $event)">
+        {{ isFollowing(artist) ? 'Siguiendo' : 'Seguir' }}
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>

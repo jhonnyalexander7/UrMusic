@@ -1,0 +1,19 @@
+<div class="mini-player-bar" *ngIf="track" (click)="openPlayer()">
+  <img [src]="track.image || 'assets/default-cover.png'" [alt]="track.name" class="mini-art"/>
+  <div class="mini-info">
+    <p class="mini-song">{{ track.name }}</p>
+    <p class="mini-artist">{{ track.artist }}</p>
+  </div>
+  <div class="mini-controls">
+    <ion-icon
+      [name]="isPlaying ? 'pause' : 'play'"
+      class="mini-btn"
+      (click)="togglePlay($event)">
+    </ion-icon>
+    <ion-icon
+      name="play-skip-forward"
+      class="mini-btn"
+      (click)="next($event)">
+    </ion-icon>
+  </div>
+</div>

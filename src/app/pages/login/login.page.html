@@ -1,0 +1,38 @@
+<ion-content [fullscreen]="true" class="login-page">
+
+  <div class="login-container">
+
+    <!-- Logo -->
+    <div class="logo-section">
+      <div class="logo-icon">
+        <ion-icon name="musical-notes"></ion-icon>
+      </div>
+      <h1 class="logo-text">UrMusic</h1>
+      <p class="logo-sub">Tu música, a tu manera</p>
+    </div>
+
+    <!-- Ilustración central -->
+    <div class="illustration">
+      <div class="wave-circle wave1"></div>
+      <div class="wave-circle wave2"></div>
+      <div class="wave-circle wave3"></div>
+      <ion-icon name="headset" class="illustration-icon"></ion-icon>
+    </div>
+
+    <!-- Botones -->
+    <div class="buttons-section">
+      <div class="spotify-btn" (click)="loginSpotify()">
+        <ion-icon name="musical-note" class="spotify-icon"></ion-icon>
+        <span>Continuar con Spotify Premium</span>
+      </div>
+      <div class="guest-btn" (click)="continueAsGuest()">
+        <span>Continuar sin cuenta</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <p class="footer-text">Al continuar aceptas los términos de uso de UrMusic</p>
+
+  </div>
+
+</ion-content>

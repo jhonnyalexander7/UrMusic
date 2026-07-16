@@ -1,0 +1,116 @@
+ion-content.buscar-page {
+  --background: #1c1c1e;
+}
+
+.buscar-header {
+  padding: 24px 20px 12px;
+
+  h1 {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .search-bar {
+    background: #2c2c2e;
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    ion-icon { color: #888; font-size: 18px; }
+
+    input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 14px;
+      &::placeholder { color: #555; }
+    }
+  }
+}
+
+.section { padding: 0 20px 16px; }
+
+.section-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.categorias-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.categoria-card {
+  border-radius: 12px;
+  height: 80px;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+  cursor: pointer;
+
+  span {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  &.cat1 { background: linear-gradient(135deg, #e91e8c, #f5a623); }
+  &.cat2 { background: linear-gradient(135deg, #1a237e, #3b4bc8); }
+  &.cat3 { background: linear-gradient(135deg, #f5a623, #e8472a); }
+  &.cat4 { background: linear-gradient(135deg, #6a1b9a, #ab47bc); }
+  &.cat5 { background: linear-gradient(135deg, #b71c1c, #4a0000); }
+  &.cat6 { background: linear-gradient(135deg, #006064, #00bcd4); }
+}
+
+.tendencia-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #2a2a2a;
+  cursor: pointer;
+
+  .num {
+    color: #fc3c44;
+    font-size: 16px;
+    font-weight: 700;
+    width: 20px;
+    text-align: center;
+  }
+
+  .tend-info {
+    flex: 1;
+    .tend-song { color: #fff; font-size: 13px; font-weight: 600; margin: 0; }
+    .tend-artist { color: #888; font-size: 11px; margin: 2px 0 0; }
+  }
+}
+
+.result-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+
+  &.round { border-radius: 50%; }
+}
+
+.play-icon {
+  font-size: 18px;
+  color: #fc3c44;
+}
+
+.searching {
+  text-align: center;
+  padding: 20px;
+  p { color: #888; font-size: 14px; }
+}
